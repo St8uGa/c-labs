@@ -21,7 +21,7 @@ public:
     }
 
     void takeDamage(int amount) {
-        std::lock_guard<std::mutex> lock(mtx); // Защищаем доступ к health
+        std::lock_guard<std::mutex> lock(mtx);
         health -= amount;
         if (health < 0) health = 0;
     }
@@ -44,7 +44,7 @@ public:
     void attack(Creature& target) override {
         if (!isAlive() || !target.isAlive()) return;
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(500)); // Задержка между атаками
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
         target.takeDamage(damage);
         std::cout << name << " hits " << target.getName() << " for " << damage << " damage. ";
         std::cout << target.getName() << " health: " << target.getHealth() << std::endl;
@@ -58,7 +58,7 @@ public:
     void attack(Creature& target) override {
         if (!isAlive() || !target.isAlive()) return;
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(700)); // Монстр атакует реже
+        std::this_thread::sleep_for(std::chrono::milliseconds(700));
         target.takeDamage(damage);
         std::cout << name << " hits " << target.getName() << " for " << damage << " damage. ";
         std::cout << target.getName() << " health: " << target.getHealth() << std::endl;
@@ -79,14 +79,12 @@ int main() {
     std::cout << hero.getName() << " (HP: " << hero.getHealth() << ") vs ";
     std::cout << monster.getName() << " (HP: " << monster.getHealth() << ")" << std::endl;
 
-    // Запускаем бой в двух потоках
     std::thread heroThread(fight, std::ref(hero), std::ref(monster));
     std::thread monsterThread(fight, std::ref(monster), std::ref(hero));
 
     heroThread.join();
     monsterThread.join();
 
-    // Определяем победителя
     if (hero.isAlive()) {
         std::cout << hero.getName() << " wins the battle!" << std::endl;
     }
