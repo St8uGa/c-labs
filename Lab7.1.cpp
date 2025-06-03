@@ -5,7 +5,6 @@
 #include <string>
 #include <stdexcept>
 
-// Базовый класс для всех игровых сущностей
 class Entity {
 public:
     virtual ~Entity() = default;
@@ -34,7 +33,6 @@ public:
     }
 };
 
-// Класс игрока
 class Player : public Entity {
 public:
     Player(const std::string& name = "Unknown", int health = 100, int level = 1)
@@ -61,7 +59,6 @@ private:
     int level_;
 };
 
-// Класс врага
 class Enemy : public Entity {
 public:
     Enemy(const std::string& name = "Enemy", int health = 50, int level = 1,
@@ -95,7 +92,6 @@ private:
     std::string enemyType_;
 };
 
-// Менеджер игровых сущностей
 class EntityManager {
 public:
     void addEntity(std::unique_ptr<Entity> entity) {
@@ -173,7 +169,6 @@ private:
 int main() {
     EntityManager manager;
 
-    // Измененные имена персонажей
     manager.addEntity(std::make_unique<Player>("Stray", 150, 5));
     manager.addEntity(std::make_unique<Player>("Yuta", 80, 7));
     manager.addEntity(std::make_unique<Enemy>("Orc", 120, 3, "Orc"));
