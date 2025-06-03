@@ -10,10 +10,8 @@ private:
     std::string address;
 
 public:
-    // Конструктор
     Person() : name(""), age(0), email(""), address("") {}
 
-    // Геттеры
     std::string getName() const {
         return name;
     }
@@ -30,7 +28,6 @@ public:
         return address;
     }
 
-    // Сеттеры
     void setName(const std::string& newName) {
         if (!newName.empty()) {
             bool isValid = std::all_of(newName.begin(), newName.end(), [](char c) {
@@ -89,27 +86,23 @@ public:
 int main() {
     Person person;
 
-    // Устанавливаем корректные значения
     person.setName("Yuta Okkotsu");
     person.setAge(18);
     person.setEmail("YutaOkko@example.com");
     person.setAddress("180 Shibuya Tokio");
 
-    // Выводим информацию через геттеры
     std::cout << "Getting data via getters:\n";
     std::cout << "Name: " << person.getName() << "\n";
     std::cout << "Age: " << person.getAge() << "\n";
     std::cout << "Email: " << person.getEmail() << "\n";
     std::cout << "Address: " << person.getAddress() << "\n\n";
 
-    // Пробуем установить некорректные значения (должны быть ошибки)
     std::cout << "Trying to set invalid data:\n";
-    person.setName("lordex123"); // Ошибка: имя содержит цифры
-    person.setAge(150);        // Ошибка: возраст вне диапазона
-    person.setEmail("invalid-email"); // Ошибка: нет @ и .
-    person.setAddress("");     // Ошибка: пустой адрес
+    person.setName("lordex123");
+    person.setAge(150);
+    person.setEmail("invalid-email");
+    person.setAddress("");
 
-    // Выводим полную информацию через displayInfo()
     std::cout << "\nFinal person info:\n";
     person.displayInfo();
 
