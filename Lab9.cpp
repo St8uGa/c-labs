@@ -7,7 +7,6 @@
 
 using namespace std;
 
-// Базовый класс для всех существ
 class Entity {
 protected:
     string name;
@@ -15,7 +14,7 @@ protected:
     int maxHealth;
     int attack;
     int defense;
-    int agility; // Шанс уклониться от атаки
+    int agility;
 
 public:
     Entity(string n, int h, int a, int d, int agi)
@@ -37,14 +36,13 @@ public:
     }
 
     virtual void attackTarget(Entity& target) {
-        // Проверка на уклонение
         if (rand() % 100 < target.agility) {
             cout << target.name << " dodged the attack!\n";
             return;
         }
 
         int damage = attack - target.defense;
-        if (damage < 1) damage = 1; // Минимальный урон
+        if (damage < 1) damage = 1;
 
         target.takeDamage(damage);
         cout << name << " hits " << target.name << " for " << damage << " damage!\n";
@@ -61,7 +59,6 @@ public:
     int getHealth() const { return health; }
 };
 
-// Класс игрока
 class Player : public Entity {
 private:
     int experience;
@@ -117,13 +114,11 @@ public:
     }
 };
 
-// Классы монстров
 class Stray : public Entity {
 public:
     Stray() : Entity("Stray", 60, 12, 5, 15) {}
 
     void attackTarget(Entity& target) override {
-        // 20% шанс на критический удар
         if (rand() % 100 < 20) {
             int critDamage = (attack * 2) - target.getHealth();
             cout << "Stray lands a critical hit!\n";
@@ -140,7 +135,6 @@ public:
     Kobold() : Entity("Kobold", 45, 18, 3, 25) {}
 
     void attackTarget(Entity& target) override {
-        // Кобольды атакуют дважды с 30% вероятностью
         Entity::attackTarget(target);
         if (rand() % 100 < 30) {
             cout << "Kobold attacks again!\n";
@@ -149,13 +143,11 @@ public:
     }
 };
 
-// Функция для очистки ввода
 void clearInput() {
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-// Главная игровая функция
 void gameLoop() {
     srand(time(0));
     string playerName;
@@ -206,7 +198,6 @@ void gameLoop() {
                     << expReward << " experience!\n";
                 player.gainExperience(expReward);
 
-                // 50% шанс получить зелье за победу
                 if (rand() % 100 < 50) {
                     player.addToInventory("Health Potion");
                     cout << "Found a Health Potion!\n";
