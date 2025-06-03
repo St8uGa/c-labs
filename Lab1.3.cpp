@@ -5,7 +5,6 @@
 
 using namespace std;
 
-// Класс оружия
 class Weapon {
 private:
     string name;
@@ -30,7 +29,6 @@ public:
     }
 };
 
-// Класс персонажа
 class Character {
 private:
     string name;
@@ -78,7 +76,6 @@ public:
     }
 };
 
-// Класс боя
 class Battle {
 private:
     Character& player;
@@ -90,15 +87,12 @@ public:
         cout << "Battle between " << player.getName() << " and " << enemy.getName() << " begins!\n";
 
         while (player.isAlive() && enemy.isAlive()) {
-            // Player's turn
             player.attack(enemy);
             if (!enemy.isAlive()) break;
 
-            // Enemy's turn
             enemy.attack(player);
             if (!player.isAlive()) break;
 
-            // Show status
             player.showStatus();
             enemy.showStatus();
             cout << "-----------------------\n";
@@ -114,23 +108,19 @@ public:
 };
 
 int main() {
-    srand(time(0)); // Random seed initialization
+    srand(time(0));
 
-    // Create weapons
     Weapon sword("Sword", 15, 20);
     Weapon axe("Axe", 20, 10);
     Weapon dagger("Dagger", 10, 30);
 
-    // Create characters
     Character stray("Stray", 100, &sword);
     Character roshan("Roshan", 80, &axe);
 
-    // Show initial status
     stray.showStatus();
     roshan.showStatus();
     cout << "-----------------------\n";
 
-    // Start battle
     Battle battle(stray, roshan);
     battle.start();
 
