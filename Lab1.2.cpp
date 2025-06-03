@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 
-// Базовый класс для всех игровых сущностей
 class GameEntity {
 protected:
     std::string name;
@@ -26,7 +25,6 @@ public:
     virtual ~GameEntity() {}
 };
 
-// Класс игрока
 class Player : public GameEntity {
 private:
     int experience;
@@ -55,7 +53,6 @@ public:
     }
 };
 
-// Класс врага
 class Enemy : public GameEntity {
 protected:
     std::string type;
@@ -77,7 +74,6 @@ public:
     }
 };
 
-// Босс
 class Boss : public Enemy {
 private:
     std::string specialAbility;
@@ -99,12 +95,10 @@ public:
 };
 
 int main() {
-    // Создание объектов с новыми именами
     Player wanderer("Stray", 120, 3, 45, "Blade Dancer");
     Enemy creature("Vovapin", 65, 2, "Cursed Beast", 12);
     Boss bladeMaster("Malenia", 350, 15, "Blade of Miquella", 30, "Waterfowl Dance");
 
-    // Демонстрация полиморфизма
     std::cout << "=== Wanderer's Info ===" << std::endl;
     wanderer.displayStats();
     wanderer.specialAction();
@@ -117,7 +111,6 @@ int main() {
     bladeMaster.displayStats();
     bladeMaster.specialAction();
 
-    // Игрок получает опыт и уровень
     std::cout << "\n=== Progression ===" << std::endl;
     wanderer.levelUp();
     wanderer.displayStats();
